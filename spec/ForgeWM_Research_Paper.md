@@ -123,7 +123,7 @@ $$h_1|_{U_1 \cap U_2} - h_2|_{U_1 \cap U_2} = \delta g \quad \text{for some } g 
 
 Define the transition functional:
 
-$$\Omega(h_1, h_2) = \int_{U_1 \cap U_2} \left[ \mathcal{F}_{h_1}(x) - \mathcal{F}_{h_2}(x) \right]^2 d\mu(x)$$
+$$\Omega(h_1, h_2) = \int_{U_1 \cap U_2} [ \mathcal{F}_{h_1}(x) - \mathcal{F}_{h_2}(x) ]^2 d\mu(x)$$
 
 If Ω(h₁, h₂) > 0 for all h₁ ∈ F(U₁), h₂ ∈ F(U₂), no coboundary exists and [Ω] ∈ H¹(X, F) is a non-zero cohomology class.
 
@@ -139,7 +139,7 @@ Computability: Ω is computed by running the simulation oracle O on the overlap 
 
 In practice, X is sampled finitely. Let {x₁,...,xₙ} be n simulation contexts. The Čech complex at scale ε is:
 
-$$\mathcal{C}(\varepsilon) = \left\{ \sigma \subseteq \{x_1,\ldots,x_n\} : \bigcap_{x_i \in \sigma} B_\varepsilon(x_i) \neq \emptyset \right\}$$
+$$\mathcal{C}(\varepsilon) = \{ \sigma \subseteq \{x_1,\ldots,x_n\} : \bigcap_{x_i \in \sigma} B_\varepsilon(x_i) \neq \emptyset \}$$
 
 with metric d(xᵢ, xⱼ) = ||BCᵢ - BCⱼ||_{L²} (L² distance between boundary conditions).
 
@@ -147,7 +147,7 @@ with metric d(xᵢ, xⱼ) = ||BCᵢ - BCⱼ||_{L²} (L² distance between bounda
 
 **Theorem 2**. *As n → ∞ and ε → 0 with nε^d → ∞ (d = dim X), the persistent cohomology PH¹(C(ε), F_ε) converges to H¹(X, F) in bottleneck distance:*
 
-$$d_{\text{bottle}}\left( PH^1(\mathcal{C}(\varepsilon), \mathcal{F}_\varepsilon),\ H^1(X, \mathcal{F}) \right) \leq C\varepsilon + \delta(n)$$
+$$d_{\text{bottle}}( PH^1(\mathcal{C}(\varepsilon), \mathcal{F}_\varepsilon),\ H^1(X, \mathcal{F}) ) \leq C\varepsilon + \delta(n)$$
 
 *where δ(n) → 0 as n → ∞.*
 
@@ -155,7 +155,7 @@ $$d_{\text{bottle}}\left( PH^1(\mathcal{C}(\varepsilon), \mathcal{F}_\varepsilon
 
 **Sample complexity**: for d = 5 parameters, ε = 0.1, δ = 0.01:
 
-$$n = \mathcal{O}\!\left(\varepsilon^{-d} \log(1/\delta)\right) \approx 460{,}000 \text{ FEM evaluations}$$
+$$n = \mathcal{O}(\varepsilon^{-d} \log(1/\delta)) \approx 460{,}000 \text{ FEM evaluations}$$
 
 At 8 seconds per FEniCS evaluation with 64 parallel workers: approximately 16 hours wall time. This is a one-time computation producing a complete catalogue of missing principles.
 
@@ -199,7 +199,7 @@ Since M_A ⊨ ¬(X causes Y) while the true simulation model ⊨ (X causes Y), M
 
 Define the *cohomology loss* over parameterised hypotheses h(θ):
 
-$$\mathcal{L}_{\text{coh}}(\theta) = -\left\| [h(\theta)] \right\|_{H^1}$$
+$$\mathcal{L}_{\text{coh}}(\theta) = -\| [h(\theta)] \|_{H^1}$$
 
 where ||·||_{H¹} is the harmonic norm via the Hodge decomposition.
 
@@ -310,7 +310,7 @@ At 1 second per FEM test with 1000 parallel workers: approximately 4 hours. One-
 
 **Theorem 12**. *The minimum description length estimator:*
 
-$$h^*_{\text{unique}} = \arg\min_{h : \text{passes causal test}} \left[ L(h) + L(D \mid h) \right]$$
+$$h^*_{\text{unique}} = \arg\min_{h : \text{passes causal test}} [ L(h) + L(D \mid h) ]$$
 
 *converges almost surely to the true governing equation as simulation data n → ∞:*
 
@@ -318,7 +318,7 @@ $$h^*_{\text{unique}} \xrightarrow{a.s.} h_{\text{true}} \quad \text{as } n \to 
 
 **Proof**. Physical simulations are PSPACE-computable (Theorem 9), hence computable in the Turing sense. By Solomonoff's universal prior theorem (1964), MDL with a universal description language converges to the true generating distribution for any computable process. The convergence rate by Rissanen's theorem (1989) is:
 
-$$\left| \text{MDL}(h^*_{\text{unique}}) - \text{MDL}(h_{\text{true}}) \right| \leq \frac{k}{2}\log n + \mathcal{O}(1)$$
+$$| \text{MDL}(h^*_{\text{unique}}) - \text{MDL}(h_{\text{true}}) | \leq \frac{k}{2}\log n + \mathcal{O}(1)$$
 
 For equations with k ≤ 5 free parameters, convergence to numerical precision at n = 10^5 samples — already required by Theorem 2 with no additional simulation cost. □
 
@@ -593,4 +593,4 @@ Topaz, C. M., Ziegelmeier, L., & Halverson, T. (2015). Topological data analysis
 
 ---
 
-*Manuscript prepared May 2026. All theorems are original contributions of this work. Implementation code available at github.com/[repository upon acceptance].*
+*Manuscript prepared May 2026. All theorems are original contributions of this work. Implementation code available at github.com/Blackl1stV35/forgwm.*
