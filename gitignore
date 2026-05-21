@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Data — too large for GitHub
+*.pkl
+*.hdf5
+*.h5
+data/
+checkpoints/
+
+# PySR temp files
+*.csv
+hall_of_fame*
+equation_search*
+
+# Figures generated at runtime (keep source figures)
+experiment*_results.png
+experiment*_corrected*.png
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Colab
+drive/
+/content/

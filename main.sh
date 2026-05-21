@@ -1,0 +1,4 @@
+pdflatex forgwm_paper1.tex
+bibtex forgwm_paper1
+pdflatex forgwm_paper1.tex
+pdflatex forgwm_paper1.tex
