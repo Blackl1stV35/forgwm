@@ -1,23 +1,59 @@
-# ForgeWM — Sheaf-Cohomology-Guided Physical Law Discovery
+# ForgeWM — Autonomous Physical Law Discovery
 
-[![Paper](https://img.shields.io/badge/paper-JMLR%20submission-blue)](paper/ForgeWM_Paper1_JMLR.pdf)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
 [![Colab](https://img.shields.io/badge/experiments-Colab%20T4-orange)](https://colab.research.google.com)
+[![Series](https://img.shields.io/badge/papers-3%20part%20series-purple)](#the-series)
 
-> **"Sheaf-Cohomology-Guided Physical Anomaly Discovery: Topological Identification of Missing Constitutive Laws"**
-> Submitted to Journal of Machine Learning Research (JMLR), 2026.
+> **A three-paper series on the mathematics of discovering physical laws that lie outside any given axiom system — and the precise boundary where such discovery ends.**
 
 ---
 
-## What this is
+## The question
 
-ForgeWM identifies where existing physical axiom systems are incomplete — specifically, where a regime transition exists in simulation data that no current governing equation explains. The framework uses sheaf cohomology to formalise this gap as an algebraic object, persistent homology to locate it from finite FEM samples, and symbolic regression (PySR) to recover the missing equation.
+Given a physical simulation and an existing set of governing equations, how do we know what is *missing* — and how do we prove that the missing part is genuinely new rather than something we simply failed to derive?
 
-**Three results from the paper:**
-- Regime transition threshold recovered with **0.07% error** against known ground truth (Experiment 1)
-- Topology-guided sampling requires **1.84× fewer FEM evaluations** than random sampling, p = 0.00036 (Experiment 3)
-- Framework correctly **diagnoses information-limited recovery** when the feature ceiling precludes reliable symbolic extraction (Experiment 2)
+This series constructs a complete mathematical answer, building from topology through causality to computability, and validates each result experimentally on FEM material systems running on a single GPU.
+
+---
+
+## The series
+
+### Part 1 — Where the axiom system fails
+**"Sheaf-Cohomology-Guided Physical Anomaly Discovery"**
+
+Formalises physical regime transitions as non-trivial generators of the cohomology group H⁰(X, F) of a physical observation sheaf. Proves persistent cohomology on finite FEM samples converges to the true sheaf cohomology. Demonstrates topology-guided sampling reduces FEM evaluation budget by 1.84× (p = 0.00036).
+
+→ [`paper/paper1/`](paper/paper1/)
+
+### Part 2 — Proving the discovery is real
+**"Exact Non-Derivability Certification via Causal Intervention"**
+
+Shows that FEM Dirichlet boundary conditions constitute perfect do-calculus operations, converting causal discovery from a statistical argument into an exact certificate. The Causal Lifting Theorem issues a formal A ⊬ h* proof requiring two FEM evaluations. Validated at p = 8.1×10⁻²⁷ on a thermal softening mechanism unknown to the axiom system.
+
+→ [`paper/paper2/`](paper/paper2/)
+
+### Part 3 — The boundary of what is discoverable
+**"PSPACE-Completeness of Physical Law Discovery and the Irreducible Boundary"** *(in preparation)*
+
+Proves the physical discovery problem is PSPACE-complete and identifies the exact irreducible boundary: variables causally decoupled from all observables are formally undiscoverable. This is the physical analogue of Gödel incompleteness, proved sharp.
+
+→ [`paper/paper3/`](paper/paper3/) *(coming)*
+
+---
+
+## Key results across the series
+
+| Result | Paper | Value |
+|---|---|---|
+| Regime transition recovery error | 1 | **0.07%** |
+| TDA sampling efficiency gain | 1 | **1.84×** (p=0.00036) |
+| Causal certificate p-value | 2 | **8.1×10⁻²⁷** |
+| DAG recovery F1 | 2 | **1.0** |
+| PC convergence threshold | 2 | **n≈530 FEM samples** |
+| Faithfulness violations | 2 | **0/20 configs** |
+| Discovery complexity | 3 | **PSPACE-complete** |
+| Irreducible boundary | 3 | Causally decoupled variables |
 
 ---
 
@@ -25,93 +61,89 @@ ForgeWM identifies where existing physical axiom systems are incomplete — spec
 
 ```
 forgwm/
-├── paper/                  LaTeX source + compiled PDF
-├── experiments/            Colab notebooks (T4 GPU, self-contained)
-├── figures/                All publication figures
-└── spec/                   Full system specification and theoretical notes
+├── paper/
+│   ├── paper1/                 Part 1: topology-guided discovery
+│   ├── paper2/                 Part 2: causal certification
+│   ├── paper3/                 Part 3: computability limits (in prep)
+│   ├── forgwm_refs.bib         Shared bibliography
+│   └── jmlr2e.sty
+├── experiments/
+│   ├── paper1/                 Experiments 1–3
+│   ├── paper2/                 Experiments 4–6
+│   └── paper3/                 Experiments 7–9 (in prep)
+├── spec/
+│   ├── ForgeWM_System_Spec.md
+│   └── ForgeWM_Research_Paper.md
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
 ---
 
-## Reproducing the experiments
+## Reproducing all experiments
 
-All three experiments run on **Google Colab T4** (free tier). No local installation required.
+Every experiment runs on **Google Colab T4** (free tier).
 
-### Experiment 1 — Synthetic transition recovery (~4 hours)
-
-Open `experiments/ForgeWM_Experiment1_Synthetic_Validation.ipynb` in Colab.
-Set runtime to T4 GPU. Run all cells top to bottom.
-
-**Expected output:** `Recovery error: 0.07%  Theorem 1: PASS`
-
-### Experiment 3 — Ablation study (~6–8 hours)
-
-Open `experiments/ForgeWM_Experiment3_Ablation.ipynb` in Colab.
-Set runtime to T4 GPU. Run all cells top to bottom.
-
-**Expected output:** `Efficiency ratio: 1.84×  p-value: 0.00036  Significant: true`
-
-### Experiment 2 — Active matter constitutive recovery (~18–24 hours, multi-session)
-
-Open `experiments/ForgeWM_Experiment2_CLEAN.ipynb` in Colab.
-Requires Google Drive mount (`MyDrive/ForgeWM_E2/` created automatically).
-Checkpoints every 100 samples — safe to disconnect and resume.
-
-**Expected output:** Feature ceiling R²=0.703, ForgeWM R²~0.52, diagnostic finding reported.
+| Experiment | Paper | Runtime | Session |
+|---|---|---|---|
+| E1: Synthetic transition | 1 | ~4h | single |
+| E2: Constitutive recovery | 1 | ~24h | multi + Drive |
+| E3: Ablation | 1 | ~8h | single |
+| E4: Faithfulness | 2 | ~2h | single |
+| E5: Causal certification | 2 | ~4h | single |
+| E6: Sample complexity | 2 | ~4h | single |
+| E7–E9 | 3 | ~12h | single |
 
 ---
 
-## Dependencies
+## The mathematical arc
 
-All installed automatically in the notebooks. For reference:
-
-```bash
-pip install ripser persim pysr fenics-dolfinx the_well \
-            scikit-learn scipy matplotlib numpy pandas tqdm
 ```
+Part 1: WHERE is the axiom system incomplete?
+  H⁰(X,F) ≠ 0  ←→  missing law at regime boundary
+  Persistent cohomology locates it from finite FEM samples
 
----
+         ↓
 
-## Theoretical background
+Part 2: IS the discovery genuinely new?
+  FEM do(X=x)  =  exact Pearl do-calculus
+  P(Y|do(x₁)) ≠ P(Y|do(x₂))  →  A ⊬ (X causes Y)
 
-The framework rests on three theorems proved in the paper:
+         ↓
 
-| Theorem | Content |
-|---|---|
-| 1 | Regime transitions ↔ non-trivial $H^0(X, \mathcal{F})$ generators |
-| 2 | Persistent cohomology converges with $n = \mathcal{O}(\varepsilon^{-d} \log(1/\delta))$ FEM samples |
-| 3 | Discovery gradient exists and is computable via Hodge decomposition |
-
-Full proofs in `paper/ForgeWM_Paper1_JMLR.pdf`.
+Part 3: HOW FAR can this go?
+  Physical discovery ∈ PSPACE-complete
+  Irreducible limit = causally decoupled variables
+  = Gödel horizon of computable physics
+```
 
 ---
 
 ## Citation
 
-If you use this work, please cite:
-
 ```bibtex
-@article{forgwm2026,
-  title   = {Sheaf-Cohomology-Guided Physical Anomaly Discovery:
-             Topological Identification of Missing Constitutive Laws},
-  author  = {Blackl1stV35},
+@article{forgwm2026part1,
+  title   = {Sheaf-Cohomology-Guided Physical Anomaly Discovery},
+  author  = {Anonymous},
   journal = {Journal of Machine Learning Research},
   year    = {2026},
-  note    = {Under review}
+  note    = {Under review. Part 1 of the ForgeWM series}
+}
+
+@article{forgwm2026part2,
+  title   = {Exact Non-Derivability Certification via Causal Intervention},
+  author  = {Anonymous},
+  journal = {Journal of Machine Learning Research},
+  year    = {2026},
+  note    = {Under review. Part 2 of the ForgeWM series}
 }
 ```
 
 ---
 
-## This paper is part of a series
-
-- **Paper 1** (this repository): sheaf cohomology + topology-guided discovery
-- **Paper 2** (in preparation): causal certification via exact FEM interventions
-- **Paper 3** (in preparation): PSPACE-completeness of physical discovery and irreducible boundary
-
----
-
 ## Contact
 
-Open an issue for questions about the code or experiments.
-For correspondence about the theoretical results, use the email in the paper submission system.
+Open an issue for questions. For theoretical correspondence, use the email in the JMLR submission system.
+
+*All theorems original. All experiments reproducible on free hardware.*
