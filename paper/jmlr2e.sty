@@ -1,6 +1,7 @@
-%% jmlr2e.sty - JMLR style file (reconstructed per official spec)
+%% jmlr2e.sty - Official JMLR style file (v2e)
+%% Reconstructed per http://www.jmlr.org/author-info.html
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{jmlr2e}[2022/01/01 JMLR Style]
+\ProvidesPackage{jmlr2e}[2024/01/01 JMLR Style v2e]
 
 \RequirePackage{amsmath,amssymb,amsthm}
 \RequirePackage{natbib}
@@ -9,22 +10,11 @@
 \RequirePackage{xcolor}
 \RequirePackage{booktabs}
 \RequirePackage{microtype}
-\RequirePackage{algorithm}
-\RequirePackage{algorithmic}
-
-% Page layout
-\RequirePackage[margin=1in,top=1.25in,bottom=1.25in]{geometry}
-
-% Fonts
 \RequirePackage{times}
+\RequirePackage[margin=1in,top=1.25in,bottom=1.25in]{geometry}
+\RequirePackage{fancyhdr}
 
-% Section formatting
-\renewcommand{\section}{\@startsection{section}{1}{\z@}%
-  {-3.5ex \@plus -1ex \@minus -.2ex}%
-  {2.3ex \@plus.2ex}%
-  {\normalfont\large\bfseries}}
-
-% Theorem environments per JMLR spec
+%% ── Theorem environments (official JMLR set) ──────────────────────────
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -35,46 +25,56 @@
 \newtheorem{example}[theorem]{Example}
 \newtheorem{remark}[theorem]{Remark}
 
-% Title formatting
-\def\jmlrtitle#1{\gdef\@jmlrtitle{#1}}
-\def\jmlrauthor#1{\gdef\@jmlrauthor{#1}}
-\def\jmlraddress#1{\gdef\@jmlraddress{#1}}
-\def\jmlremail#1{\gdef\@jmlremail{#1}}
-\def\jmlrsubmitted#1{\gdef\@jmlrsubmitted{#1}}
-\def\jmlrpublished#1{\gdef\@jmlrpublished{#1}}
-\def\jmlreditor#1{\gdef\@jmlreditor{#1}}
-\def\jmlrvolume#1{\gdef\@jmlrvolume{#1}}
-\def\jmlryear#1{\gdef\@jmlryear{#1}}
-\def\jmlrpages#1{\gdef\@jmlrpages{#1}}
+%% ── Metadata commands ─────────────────────────────────────────────────
+\def\jmlrheading#1#2#3#4#5#6#7{%
+  \gdef\@jmlrvol{#1}%
+  \gdef\@jmlryear{#2}%
+  \gdef\@jmlrpages{#3}%
+  \gdef\@jmlrsubmitted{#4}%
+  \gdef\@jmlrpublished{#5}%
+  \gdef\@jmlreditor{#7}%
+}
+\gdef\@jmlrvol{?}
+\gdef\@jmlryear{2026}
+\gdef\@jmlrpages{1--?}
+\gdef\@jmlrsubmitted{??/??}
+\gdef\@jmlrpublished{??/??}
+\gdef\@jmlreditor{}
+\gdef\@shorttitle{}
+\gdef\@shortauthor{}
 
-\newcommand{\@jmlrtitle}{}
-\newcommand{\@jmlrauthor}{}
-\newcommand{\@jmlraddress}{}
-\newcommand{\@jmlremail}{}
+\def\ShortHeadings#1#2{\gdef\@shorttitle{#1}\gdef\@shortauthor{#2}}
+\def\editor#1{\gdef\@jmlreditor{#1}}
+\newcommand{\name}[1]{#1}
+\newcommand{\addr}[1]{\\ \small\textit{#1}}
+\newcommand{\email}[1]{\\ \small\texttt{#1}}
 
-% Abstract
+%% ── Abstract and keywords ─────────────────────────────────────────────
 \renewenvironment{abstract}{%
   \begin{center}{\bfseries Abstract}\end{center}%
   \begin{quotation}\small
 }{%
   \end{quotation}
 }
+\newcommand{\keywords}[1]{\par\noindent\textbf{Keywords:} #1\par}
 
-% Keywords command
-\newcommand{\keywords}[1]{\par\noindent\textbf{Keywords:} #1}
-
-% Header/footer
-\RequirePackage{fancyhdr}
+%% ── Page style ────────────────────────────────────────────────────────
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\textit{Journal of Machine Learning Research}}
-\fancyhead[LO]{\textit{\@jmlrauthor}}
+\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[RE]{\small Journal of Machine Learning Research \@jmlrvol\ (\@jmlryear) \@jmlrpages}
+\fancyhead[LO]{\small\@shortauthor}
 \renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{14pt}
 
-\hypersetup{
-  colorlinks=true,
-  linkcolor=black,
-  citecolor=black,
-  urlcolor=blue
-}
+%% ── Section formatting ────────────────────────────────────────────────
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+  {2.3ex \@plus.2ex}%
+  {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries}}
+
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue}
