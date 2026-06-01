@@ -165,7 +165,7 @@ Part 3: HOW FAR and WHERE does it end?
 ```bibtex
 @article{forgwm2026part1,
   title   = {Sheaf-Cohomology-Guided Physical Anomaly Discovery},
-  author  = {Anonymous},
+  author  = {Kanokphan Sirithienthong},
   journal = {Journal of Machine Learning Research},
   year    = {2026},
   note    = {Under review. Part 1 of the ForgeWM series}
@@ -173,7 +173,7 @@ Part 3: HOW FAR and WHERE does it end?
 
 @article{forgwm2026part2,
   title   = {Exact Non-Derivability Certification via Causal Intervention},
-  author  = {Anonymous},
+  author  = {Kanokphan Sirithienthong},
   journal = {Journal of Machine Learning Research},
   year    = {2026},
   note    = {Under review. Part 2 of the ForgeWM series}
@@ -182,7 +182,7 @@ Part 3: HOW FAR and WHERE does it end?
 @article{forgwm2026part3,
   title   = {PSPACE-Completeness of Physical Law Discovery
              and the Irreducible Boundary},
-  author  = {Anonymous},
+  author  = {Kanokphan Sirithienthong},
   journal = {Journal of Machine Learning Research},
   year    = {2026},
   note    = {Under review. Part 3 of the ForgeWM series}
